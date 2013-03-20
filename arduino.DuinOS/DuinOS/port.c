@@ -368,6 +368,18 @@ portSTACK_TYPE *pxPortInitialiseStack( portSTACK_TYPE *pxTopOfStack, pdTASK_CODE
 	   http://feilipu.posterous.com/ethermega-arduino-mega-2560-and-freertos
 	   Refer to SiezeofPC example to check the size of the function pointer
 	*/
+	// Test code to see the size of the function pointer
+	// It must be initialized the Serial put Serial.begin(9600) on setup()
+	while( !( UCSR0A & (1<<UDRE0)) )
+		;
+	UDR0 = sizeof(pxCode)+48;
+	while( !( UCSR0A & (1<<UDRE0)) )
+		;
+	UDR0 = '\n';
+	while( !( UCSR0A & (1<<UDRE0)) )
+		;
+	UDR0 = '\r';
+	
 	*pxTopOfStack = ( portSTACK_TYPE ) ( 0x0000 );
 	pxTopOfStack--;
 #endif
