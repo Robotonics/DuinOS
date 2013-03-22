@@ -1,0 +1,6 @@
+[submodule "idDHT11"]
+	path = idDHT11
+	url = https://github.com/niesteszeck/idDHT11.git
+[submodule "libraries/idDHT11"]
+	path = libraries/idDHT11
+	url = https://github.com/niesteszeck/idDHT11.git
