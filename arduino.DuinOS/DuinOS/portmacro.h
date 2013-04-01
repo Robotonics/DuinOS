@@ -139,7 +139,15 @@ extern void vPortYield( void ) __attribute__ ( ( naked ) );
 /*-----------------------------------------------------------*/
 
 /* Task function macros as described on the FreeRTOS.org WEB site. */
+#if defined(__AVR_ATmega2560__)
+/* This change is necesary 'cause avr gcc is unable to give as a 3 byte pointer to a function.
+   And 'cause of this issue we need to make sure they are loaded in low memory. (<128KBi or <64K words address).
+*/
+#define portTASK_FUNCTION_PROTO( vFunction, pvParameters ) void vFunction( void *pvParameters ) __attribute__ ((section (".text.lowtext")))
+#else
 #define portTASK_FUNCTION_PROTO( vFunction, pvParameters ) void vFunction( void *pvParameters )
+#endif
+
 #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
 
 #ifdef __cplusplus
